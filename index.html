@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta property="og:title" content="Cold-Lead Reengagement Sequence - Interactive Demo" />
+<meta property="og:description" content="Interactive demo: an AI follow-up sequence reactivates a 90-day-old lead and books an appointment in under 90 seconds. Scripted simulation." />
+<meta property="og:url" content="https://cold-lead-reengagement-sequence-mr-bilal-alis-projects.vercel.app" />
+<meta property="og:image" content="https://cold-lead-reengagement-sequence-mr-bilal-alis-projects.vercel.app/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="627" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Cold-Lead Reengagement Sequence - Interactive Demo" />
+<meta name="twitter:description" content="Interactive demo: an AI follow-up sequence reactivates a 90-day-old lead and books an appointment in under 90 seconds. Scripted simulation." />
+<meta name="twitter:image" content="https://cold-lead-reengagement-sequence-mr-bilal-alis-projects.vercel.app/og-image.png" />
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>Cold-Lead Reengagement Sequence — Scripted Simulation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef4ef;
+    --bg-2:#e3eee4;
+    --card:#ffffff;
+    --card-soft:#f6faf6;
+    --ink:#12261c;
+    --ink-2:#33473c;
+    --muted:#667a6e;
+    --line:#d5e3d7;
+    --line-strong:#bcd2bf;
+    --green:#0d6b4d;
+    --green-dark:#084c36;
+    --green-mid:#12805c;
+    --green-tint:#e0efe3;
+    --green-tint-2:#cfe7d3;
+    --amber-bg:#fff7e6;
+    --amber-line:#e8cf8f;
+    --amber-ink:#6b5310;
+    --radius:18px;
+    --radius-sm:12px;
+    --shadow:0 12px 32px rgba(13,107,77,.10), 0 2px 8px rgba(18,38,28,.06);
+    --shadow-sm:0 4px 14px rgba(13,107,77,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:
+      radial-gradient(900px 420px at 15% -80px, rgba(13,107,77,.10), transparent 60%),
+      radial-gradient(700px 380px at 90% 0%, rgba(13,107,77,.07), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:"DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--green)}
+  button{font:inherit; cursor:pointer}
+  .wrap{max-width:920px; margin:0 auto; padding:20px 18px 56px}
+
+  /* Simulation banner */
+  .sim-banner{
+    display:flex; gap:12px; align-items:flex-start;
+    background:#0d2b20; color:#eaf5ec;
+    border-radius:14px; padding:14px 16px;
+    box-shadow:var(--shadow-sm);
+  }
+  .sim-banner .dot{
+    flex:0 0 auto; width:10px; height:10px; border-radius:50%;
+    background:#7ed3a6; margin-top:7px;
+    box-shadow:0 0 0 5px rgba(126,211,166,.18);
+  }
+  .sim-banner strong{ display:block; font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; }
+  .sim-banner p{ margin:2px 0 0; font-size:.92rem; color:#cfe3d3; }
+  .sim-banner p b{ color:#fff; font-weight:600 }
+
+  /* Header */
+  header{ padding:28px 2px 8px; }
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--card); border:1px solid var(--line);
+    color:var(--green-dark); font-weight:700; font-size:.8rem;
+    letter-spacing:.08em; text-transform:uppercase;
+    padding:7px 12px; border-radius:999px;
+  }
+  .kicker::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--green); }
+  h1{
+    font-size:clamp(2rem, 5.2vw, 3.1rem);
+    line-height:1.02; letter-spacing:-.03em;
+    margin:16px 0 12px; font-weight:800; max-width:14ch;
+  }
+  h1 em{ font-style:normal; color:var(--green); }
+  .lede{ font-size:1.08rem; color:var(--ink-2); max-width:62ch; margin:0; }
+  .lede strong{ color:var(--ink); }
+
+  .how{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0 4px;
+  }
+  .how div{
+    background:rgba(255,255,255,.72); border:1px solid var(--line);
+    border-radius:var(--radius-sm); padding:12px 14px;
+  }
+  .how b{ display:block; font-size:.78rem; letter-spacing:.09em; text-transform:uppercase; color:var(--green); margin-bottom:3px; }
+  .how span{ font-size:.92rem; color:var(--ink-2); }
+
+  /* Progress */
+  .steps{
+    display:flex; gap:6px; margin:22px 0 14px; flex-wrap:wrap;
+  }
+  .step{
+    flex:1 1 120px; display:flex; align-items:center; gap:9px;
+    background:var(--card); border:1px solid var(--line); border-radius:999px;
+    padding:8px 12px 8px 8px; font-size:.88rem; font-weight:600; color:var(--muted);
+    transition:all .25s ease;
+  }
+  .step .n{
+    width:26px; height:26px; flex:0 0 26px; border-radius:50%;
+    display:grid; place-items:center; font-size:.8rem; font-weight:800;
+    background:var(--green-tint); color:var(--green-dark);
+  }
+  .step.active{ border-color:var(--green); color:var(--ink); box-shadow:var(--shadow-sm); }
+  .step.active .n{ background:var(--green); color:#fff; }
+  .step.done{ color:var(--green-dark); border-color:var(--line-strong); }
+  .step.done .n{ background:var(--green-dark); color:#fff; }
+
+  .panel{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:22px; margin-top:14px;
+  }
+  .panel-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap; }
+  .panel h2{ margin:0; font-size:1.28rem; letter-spacing:-.02em; }
+  .panel .sub{ margin:4px 0 0; color:var(--muted); font-size:.95rem; max-width:58ch; }
+  .timer-chip{
+    font-family:"DM Mono", ui-monospace, monospace; font-size:.85rem; font-weight:500;
+    background:var(--card-soft); border:1px solid var(--line); color:var(--green-dark);
+    border-radius:999px; padding:7px 12px; white-space:nowrap;
+  }
+  .timer-chip.running{ background:var(--green-tint); border-color:var(--line-strong); }
+
+  /* Lead picker */
+  .leads{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:18px; }
+  .lead{
+    text-align:left; background:var(--card-soft); border:1.5px solid var(--line);
+    border-radius:14px; padding:16px; width:100%;
+    transition:border-color .2s ease, background .2s ease, transform .2s ease;
+  }
+  .lead:hover{ border-color:var(--line-strong); transform:translateY(-1px); }
+  .lead:focus-visible{ outline:3px solid rgba(13,107,77,.35); outline-offset:2px; }
+  .lead.selected{ border-color:var(--green); background:#f0f7f1; box-shadow:var(--shadow-sm); }
+  .lead .avatar{
+    width:42px; height:42px; border-radius:50%; display:grid; place-items:center;
+    background:var(--green); color:#fff; font-weight:800; font-size:.95rem; margin-bottom:10px;
+  }
+  .lead.selected .avatar{ background:var(--green-dark); }
+  .lead h3{ margin:0 0 2px; font-size:1.02rem; }
+  .lead .fake-tag{
+    display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
+    color:var(--green-dark); background:var(--green-tint); border-radius:999px; padding:2px 8px; margin-bottom:8px;
+  }
+  .lead dl{ margin:0; font-size:.88rem; color:var(--ink-2); }
+  .lead dl div{ display:flex; justify-content:space-between; gap:8px; padding:3px 0; border-top:1px dashed var(--line); }
+  .lead dl div:first-child{ border-top:0; }
+  .lead dt{ color:var(--muted); } .lead dd{ margin:0; font-weight:600; text-align:right; }
+  .lead .story{ font-size:.88rem; color:var(--ink-2); margin:10px 0 0; }
+
+  .biz-note{
+    margin-top:14px; font-size:.88rem; color:var(--muted);
+    background:var(--card-soft); border:1px dashed var(--line-strong); border-radius:10px; padding:10px 12px;
+  }
+
+  .start-row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:18px; }
+  .btn{
+    border:0; border-radius:999px; font-weight:700; text-decoration:none;
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    transition:transform .15s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary{ background:var(--green); color:#fff; padding:14px 22px; font-size:1rem; box-shadow:0 8px 20px rgba(13,107,77,.25); }
+  .btn-primary:hover:not(:disabled){ background:var(--green-dark); transform:translateY(-1px); }
+  .btn-primary:disabled{ background:#a9c2ae; box-shadow:none; cursor:not-allowed; }
+  .btn-ghost{ background:#fff; color:var(--green-dark); border:1.5px solid var(--line-strong); padding:12px 18px; }
+  .btn-ghost:hover{ border-color:var(--green); }
+  .hint{ font-size:.9rem; color:var(--muted); }
+
+  /* Phone thread */
+  #threadPanel{ display:none; }
+  #threadPanel.show{ display:block; }
+  .phone{
+    margin-top:18px; border:1px solid var(--line-strong); border-radius:22px; overflow:hidden;
+    background:#fbfdfb; box-shadow:var(--shadow-sm);
+  }
+  .phone-head{
+    display:flex; align-items:center; gap:12px; padding:14px 16px;
+    background:var(--green-dark); color:#fff;
+  }
+  .phone-head .avatar{ width:38px; height:38px; border-radius:50%; background:#fff; color:var(--green-dark); display:grid; place-items:center; font-weight:800; font-size:.85rem; flex:0 0 auto; }
+  .phone-head b{ display:block; line-height:1.2; }
+  .phone-head span{ font-size:.8rem; color:#bfe0cb; }
+  .phone-head .sim-tag{ margin-left:auto; font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.25); padding:4px 9px; border-radius:999px; white-space:nowrap; }
+  .thread{ padding:18px 14px 8px; min-height:220px; }
+  .day-divider{
+    text-align:center; font-family:"DM Mono", ui-monospace, monospace;
+    font-size:.72rem; letter-spacing:.04em; color:var(--muted); margin:6px 0 14px;
+  }
+  .day-divider span{ background:var(--green-tint); border-radius:999px; padding:4px 10px; }
+  .msg{ display:flex; margin-bottom:12px; animation:pop .3s ease both; }
+  @keyframes pop{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:none;} }
+  .msg .bubble{ max-width:82%; border-radius:16px; padding:11px 14px; font-size:.95rem; }
+  .msg .meta{ display:block; font-family:"DM Mono", ui-monospace, monospace; font-size:.68rem; margin-top:6px; opacity:.75; }
+  .msg.ai{ justify-content:flex-start; }
+  .msg.ai .bubble{ background:#fff; border:1px solid var(--line); border-bottom-left-radius:5px; color:var(--ink); box-shadow:0 2px 6px rgba(18,38,28,.05); }
+  .msg.ai .who{ font-size:.7rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:4px; }
+  .msg.lead{ justify-content:flex-end; }
+  .msg.lead .bubble{ background:var(--green); color:#fff; border-bottom-right-radius:5px; }
+  .msg.system{ justify-content:center; }
+  .msg.system .bubble{ background:var(--amber-bg); border:1px solid var(--amber-line); color:var(--amber-ink); font-size:.85rem; text-align:center; max-width:92%; border-radius:10px; }
+  .typing{ display:none; padding:2px 16px 14px; color:var(--muted); font-size:.85rem; align-items:center; gap:8px; }
+  .typing.show{ display:flex; }
+  .typing .dots{ display:inline-flex; gap:4px; }
+  .typing .dots i{ width:6px; height:6px; border-radius:50%; background:var(--green); opacity:.35; animation:blink 1s infinite; }
+  .typing .dots i:nth-child(2){ animation-delay:.15s } .typing .dots i:nth-child(3){ animation-delay:.3s }
+  @keyframes blink{ 0%,100%{opacity:.25} 50%{opacity:1} }
+
+  /* Branch chooser */
+  #branchBox{ display:none; margin-top:16px; border-top:1px solid var(--line); padding-top:18px; }
+  #branchBox.show{ display:block; }
+  #branchBox h3{ margin:0 0 4px; font-size:1.05rem; }
+  #branchBox p{ margin:0 0 14px; color:var(--muted); font-size:.93rem; }
+  .branches{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .branch{
+    text-align:left; border-radius:14px; padding:14px; background:var(--card-soft);
+    border:1.5px solid var(--line); transition:all .2s ease;
+  }
+  .branch:hover{ border-color:var(--green); background:#f0f7f1; transform:translateY(-1px); }
+  .branch b{ display:block; font-size:1rem; margin-bottom:3px; }
+  .branch span{ font-size:.87rem; color:var(--muted); display:block; }
+  .branch.picked{ border-color:var(--green); background:var(--green-tint); }
+  .branch:disabled{ opacity:.55; cursor:default; transform:none; }
+
+  /* Outcome */
+  #outcomePanel{ display:none; }
+  #outcomePanel.show{ display:block; }
+  .outcome-card{
+    border-radius:16px; padding:22px; color:#fff;
+    background:linear-gradient(135deg, var(--green-dark), var(--green) 70%);
+    box-shadow:0 14px 30px rgba(13,107,77,.28);
+  }
+  .outcome-card .tag{ font-size:.74rem; font-weight:800; letter-spacing:.11em; text-transform:uppercase; color:#a9e3c2; }
+  .outcome-card h3{ margin:6px 0 6px; font-size:1.55rem; letter-spacing:-.02em; line-height:1.15; }
+  .outcome-card p{ margin:0; color:#d9efe0; max-width:56ch; }
+  .outcome-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px; }
+  .outcome-grid div{ background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); border-radius:12px; padding:12px 14px; }
+  .outcome-grid b{ display:block; font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; color:#bfe6cd; margin-bottom:3px; font-weight:700; }
+  .outcome-grid span{ font-weight:700; font-size:.98rem; }
+  .outcome-grid .big{ font-family:"DM Mono", ui-monospace, monospace; font-size:1.3rem; }
+
+  .cta-box{
+    margin-top:16px; background:var(--card-soft); border:1px solid var(--line);
+    border-radius:16px; padding:20px; display:flex; gap:18px; align-items:center; flex-wrap:wrap;
+  }
+  .cta-box div{ flex:1 1 260px; }
+  .cta-box h3{ margin:0 0 4px; font-size:1.15rem; }
+  .cta-box p{ margin:0; color:var(--muted); font-size:.93rem; }
+  .btn-book{ background:var(--ink); color:#fff; padding:15px 24px; font-size:1rem; box-shadow:0 8px 20px rgba(18,38,28,.22); white-space:nowrap; }
+  .btn-book:hover{ background:var(--green-dark); transform:translateY(-1px); }
+  .outcome-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+
+  .honest{
+    margin-top:22px; display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  }
+  .honest section{ background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:14px; padding:16px; }
+  .honest h3{ margin:0 0 8px; font-size:.95rem; }
+  .honest ul{ margin:0; padding-left:18px; color:var(--ink-2); font-size:.9rem; }
+  .honest li{ margin:4px 0; }
+  footer{ margin-top:22px; color:var(--muted); font-size:.85rem; text-align:center; }
+
+  @media (max-width:720px){
+    .wrap{ padding:14px 12px 44px; }
+    .how{ grid-template-columns:1fr; }
+    .leads{ grid-template-columns:1fr; }
+    .branches{ grid-template-columns:1fr; }
+    .outcome-grid{ grid-template-columns:1fr; }
+    .honest{ grid-template-columns:1fr; }
+    .panel{ padding:18px 15px; }
+    .msg .bubble{ max-width:90%; }
+    .btn-book, .cta-box .btn{ width:100%; }
+    .step{ flex:1 1 44%; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="sim-banner" role="note">
+    <span class="dot" aria-hidden="true"></span>
+    <div>
+      <strong>Scripted simulation — please read first</strong>
+      <p>Everything in this demo is <b>fictional and pre-written</b>. No real calls are placed, no real SMS or email is sent, and no real appointment is booked. Names, phone numbers and the business below are made up for demonstration only.</p>
+    </div>
+  </div>
+
+  <header>
+    <span class="kicker">Interactive demo · One job only</span>
+    <h1>Cold leads, <em>followed up</em> properly.</h1>
+    <p class="lede">This demo does <strong>one job</strong>: an AI follow-up sequence for leads who went quiet <strong>about 90 days ago</strong>. Pick a fictional lead, start the sequence, then choose how the lead replies — and watch the AI handle that reply, step by step, in under 90 seconds.</p>
+    <div class="how">
+      <div><b>Step 1 · Pick</b><span>Choose one of three fictional cold leads below.</span></div>
+      <div><b>Step 2 · Watch</b><span>See the timestamped, simulated message thread play out.</span></div>
+      <div><b>Step 3 · Decide</b><span>You play the lead: interested, maybe later, or no reply.</span></div>
+    </div>
+  </header>
+
+  <div class="steps" aria-label="Demo progress">
+    <div class="step active" id="step1"><span class="n">1</span> Pick a lead</div>
+    <div class="step" id="step2"><span class="n">2</span> Run the sequence</div>
+    <div class="step" id="step3"><span class="n">3</span> Choose the reply</div>
+    <div class="step" id="step4"><span class="n">4</span> See the outcome</div>
+  </div>
+
+  <!-- STEP 1: LEAD PICKER -->
+  <section class="panel" id="pickerPanel" aria-labelledby="pickerTitle">
+    <div class="panel-head">
+      <div>
+        <h2 id="pickerTitle">1. Pick a fictional cold lead</h2>
+        <p class="sub">Each lead asked the fictional business below for help roughly 90 days ago, then went quiet. All details are invented for this simulation.</p>
+      </div>
+      <span class="timer-chip" id="timerChip">Time to outcome: 0.0s</span>
+    </div>
+
+    <div class="leads" id="leads" role="group" aria-label="Fictional leads"></div>
+
+    <p class="biz-note"><strong>Fictional business:</strong> Greenfield Dental Studio — a made-up practice used only for this demo. Demo contact shown in the thread: (555) 010-9000, a reserved fake number range. Nothing here connects to a real business or a real person.</p>
+
+    <div class="start-row">
+      <button class="btn btn-primary" id="startBtn" disabled>Start the re-engagement sequence</button>
+      <span class="hint" id="startHint">Select a lead first — the sequence takes well under 90 seconds.</span>
+    </div>
+  </section>
+
+  <!-- STEP 2-3: THREAD -->
+  <section class="panel" id="threadPanel" aria-labelledby="threadTitle">
+    <div class="panel-head">
+      <div>
+        <h2 id="threadTitle">2. Simulated message thread</h2>
+        <p class="sub">Pre-written messages, shown with simulated timestamps. In a live setup this is the kind of follow-up an AI assistant would send — here, nothing leaves this page.</p>
+      </div>
+      <span class="timer-chip running" id="timerChip2">Elapsed: 0.0s</span>
+    </div>
+
+    <div class="phone">
+      <div class="phone-head">
+        <span class="avatar" id="phoneAvatar">—</span>
+        <div>
+          <b id="phoneName">Select a lead</b>
+          <span id="phoneMeta">Simulated SMS thread</span>
+        </div>
+        <span class="sim-tag">Simulated</span>
+      </div>
+      <div class="thread" id="thread" aria-live="polite"></div>
+      <div class="typing" id="typing"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="typingText">AI assistant is typing…</span></div>
+    </div>
+
+    <div id="branchBox">
+      <h3>3. Now you play the lead — how do they reply?</h3>
+      <p>Pick one. The AI responds differently to each, and each path ends in a clear outcome.</p>
+      <div class="branches">
+        <button class="branch" data-branch="interested"><b>Interested</b><span>“Yes, I still want this — what times do you have?”</span></button>
+        <button class="branch" data-branch="later"><b>Maybe later</b><span>“Not right now — maybe in a few weeks.”</span></button>
+        <button class="branch" data-branch="noreply"><b>No reply</b><span>The lead says nothing at all.</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 4: OUTCOME -->
+  <section class="panel" id="outcomePanel" aria-labelledby="outcomeTitle">
+    <h2 id="outcomeTitle" style="margin-bottom:14px;">4. Outcome</h2>
+    <div class="outcome-card">
+      <span class="tag" id="outcomeTag">Simulated outcome</span>
+      <h3 id="outcomeHeadline">—</h3>
+      <p id="outcomeText">—</p>
+      <div class="outcome-grid">
+        <div><b>Lead</b><span id="outcomeLead">—</span></div>
+        <div><b>Result</b><span id="outcomeResult">—</span></div>
+        <div><b>Seconds to outcome</b><span class="big" id="outcomeTime">—</span></div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <div>
+        <h3>Want follow-up like this on your real old leads?</h3>
+        <p>Book a short discovery call to talk through your lead list and what a follow-up sequence could look like for your business. This button opens a real booking page — unlike the demo above, which booked nothing.</p>
+      </div>
+      <a class="btn btn-book" href="https://cal.com/mrbilalali/discovery-call" target="_blank" rel="noopener">Book a discovery call</a>
+    </div>
+
+    <div class="outcome-actions">
+      <button class="btn btn-primary" id="restartBtn">Start over</button>
+      <button class="btn btn-ghost" id="tryAnotherBtn">Try a different reply</button>
+    </div>
+  </section>
+
+  <div class="honest">
+    <section>
+      <h3>What this demo shows</h3>
+      <ul>
+        <li>How a polite, spaced-out follow-up sequence can re-open a conversation with a 90-day-old lead.</li>
+        <li>How the reply changes the next step: book, nurture, or stop respectfully.</li>
+        <li>How fast the path from first message to a clear outcome can be.</li>
+      </ul>
+    </section>
+    <section>
+      <h3>What this demo does not do</h3>
+      <ul>
+        <li>It does not place calls, send SMS or email, or contact anyone.</li>
+        <li>It does not book a real appointment — the booking shown is part of the script.</li>
+        <li>It shows no real client names, numbers, or results, because it is a simulation, not a case study.</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>Scripted simulation for demonstration purposes only. Fictional business, fictional leads, fake contact details. The only real link on this page is the discovery-call booking button in the outcome section.</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var LEADS = [
+    {
+      id:"maya",
+      initials:"MR",
+      name:"Maya Reynolds",
+      fakePhone:"(555) 014-2281",
+      service:"Teeth whitening",
+      lastContact:"92 days ago",
+      originalAsk:"Asked about whitening prices after a check-up, then never booked.",
+      slot:"Thursday at 10:30 AM",
+      slotAlt:"Friday at 2:00 PM"
+    },
+    {
+      id:"daniel",
+      initials:"DK",
+      name:"Daniel Kim",
+      fakePhone:"(555) 014-7730",
+      service:"Clear aligner consult",
+      lastContact:"90 days ago",
+      originalAsk:"Filled in the aligner enquiry form, replied once, then went quiet.",
+      slot:"Wednesday at 4:15 PM",
+      slotAlt:"Saturday at 9:00 AM"
+    },
+    {
+      id:"sofia",
+      initials:"SL",
+      name:"Sofia Alvarez",
+      fakePhone:"(555) 014-5519",
+      service:"Family check-up plan",
+      lastContact:"97 days ago",
+      originalAsk:"Asked about check-ups for herself and her son, then life got busy.",
+      slot:"Tuesday at 11:00 AM",
+      slotAlt:"Thursday at 3:30 PM"
+    }
+  ];
+
+  var leadsEl = document.getElementById("leads");
+  var startBtn = document.getElementById("startBtn");
+  var startHint = document.getElementById("startHint");
+  var threadPanel = document.getElementById("threadPanel");
+  var pickerPanel = document.getElementById("pickerPanel");
+  var outcomePanel = document.getElementById("outcomePanel");
+  var threadEl = document.getElementById("thread");
+  var typingEl = document.getElementById("typing");
+  var typingText = document.getElementById("typingText");
+  var branchBox = document.getElementById("branchBox");
+  var timerChip = document.getElementById("timerChip");
+  var timerChip2 = document.getElementById("timerChip2");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var selected = null;
+  var elapsedTenths = 0;
+  var timerId = null;
+  var finalSeconds = null;
+  var running = false;
+
+  function fmt(s){ return s.toFixed(1) + "s"; }
+
+  function renderLeads(){
+    leadsEl.innerHTML = "";
+    LEADS.forEach(function(lead){
+      var b = document.createElement("button");
+      b.className = "lead" + (selected && selected.id === lead.id ? " selected" : "");
+      b.setAttribute("aria-pressed", selected && selected.id === lead.id ? "true" : "false");
+      b.innerHTML =
+        '<span class="avatar" aria-hidden="true">' + lead.initials + '</span>' +
+        '<span class="fake-tag">Fictional lead</span>' +
+        '<h3>' + lead.name + '</h3>' +
+        '<dl>' +
+          '<div><dt>Enquired about</dt><dd>' + lead.service + '</dd></div>' +
+          '<div><dt>Last contact</dt><dd>' + lead.lastContact + '</dd></div>' +
+          '<div><dt>Fake phone</dt><dd>' + lead.fakePhone + '</dd></div>' +
+        '</dl>' +
+        '<p class="story">' + lead.originalAsk + '</p>';
+      b.addEventListener("click", function(){
+        if (running) return;
+        selected = lead;
+        renderLeads();
+        startBtn.disabled = false;
+        startHint.textContent = lead.name + " selected. Press start when you are ready — the clock starts then.";
+      });
+      leadsEl.appendChild(b);
+    });
+  }
+
+  function setStep(n){
+    for (var i = 1; i <= 4; i++){
+      var el = document.getElementById("step" + i);
+      el.classList.toggle("active", i === n);
+      el.classList.toggle("done", i < n);
+    }
+  }
+
+  function startTimer(){
+    elapsedTenths = 0;
+    finalSeconds = null;
+    timerId = setInterval(function(){
+      elapsedTenths += 1;
+      var s = elapsedTenths / 10;
+      timerChip.textContent = "Time to outcome: " + fmt(s);
+      timerChip2.textContent = "Elapsed: " + fmt(s);
+    }, 100);
+  }
+  function stopTimer(){
+    if (timerId) clearInterval(timerId);
+    timerId = null;
+    finalSeconds = elapsedTenths / 10;
+    timerChip.textContent = "Time to outcome: " + fmt(finalSeconds);
+    timerChip2.textContent = "Finished in: " + fmt(finalSeconds);
+    return finalSeconds;
+  }
+
+  function sleep(ms){ return new Promise(function(r){ setTimeout(r, reduced ? Math.min(ms, 150) : ms); }); }
+
+  function showTyping(text){
+    typingText.textContent = text;
+    typingEl.classList.add("show");
+    threadPanel.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "nearest" });
+  }
+  function hideTyping(){ typingEl.classList.remove("show"); }
+
+  function addDivider(text){
+    var d = document.createElement("div");
+    d.className = "day-divider";
+    d.innerHTML = "<span>" + text + "</span>";
+    threadEl.appendChild(d);
+  }
+  function addMsg(kind, who, text, meta){
+    var row = document.createElement("div");
+    row.className = "msg " + kind;
+    var whoHtml = who ? '<span class="who">' + who + '</span>' : "";
+    row.innerHTML = '<div class="bubble">' + whoHtml + text + '<span class="meta">' + meta + '</span></div>';
+    threadEl.appendChild(row);
+    row.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "nearest" });
+  }
+
+  async function startSequence(){
+    if (!selected || running) return;
+    running = true;
+    startBtn.disabled = true;
+    startHint.textContent = "Sequence running — watch the thread below.";
+    outcomePanel.classList.remove("show");
+    branchBox.classList.remove("show");
+    threadEl.innerHTML = "";
+    threadPanel.classList.add("show");
+    document.getElementById("phoneAvatar").textContent = selected.initials;
+    document.getElementById("phoneName").textContent = selected.name + " · " + selected.fakePhone;
+    document.getElementById("phoneMeta").textContent = "Simulated SMS with Greenfield Dental Studio (fictional)";
+    setStep(2);
+    startTimer();
+    threadPanel.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+
+    var first = selected.name.split(" ")[0];
+
+    addDivider("Simulated timeline · Day 1");
+    await sleep(500);
+    showTyping("AI assistant is typing…");
+    await sleep(1100);
+    hideTyping();
+    addMsg("ai", "AI assistant · Simulated SMS",
+      "Hi " + first + ", this is the team at Greenfield Dental Studio. About three months ago you asked us about <b>" + selected.service.toLowerCase() + "</b>, and we never got you booked in. Is that still something you would like help with?",
+      "Day 1 · 9:02 AM · Simulated — not sent");
+
+    await sleep(900);
+    addDivider("Simulated timeline · Day 3 — no reply yet, one gentle follow-up");
+    showTyping("AI assistant is typing…");
+    await sleep(1100);
+    hideTyping();
+    addMsg("ai", "AI assistant · Simulated SMS",
+      "Just a quick follow-up, " + first + " — we have a couple of appointments opening up next week for " + selected.service.toLowerCase() + ". No pressure at all: reply YES and I will offer you times, or STOP and I will leave it there.",
+      "Day 3 · 10:15 AM · Simulated — not sent");
+
+    await sleep(600);
+    setStep(3);
+    branchBox.classList.add("show");
+    branchBox.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "nearest" });
+  }
+
+  async function handleBranch(branch, btn){
+    var buttons = branchBox.querySelectorAll(".branch");
+    buttons.forEach(function(b){ b.disabled = true; });
+    btn.classList.add("picked");
+    setStep(3);
+    var first = selected.name.split(" ")[0];
+
+    if (branch === "interested"){
+      await sleep(500);
+      showTyping(first + " is replying…");
+      await sleep(1000);
+      hideTyping();
+      addMsg("lead", "", "Yes, I am still interested. What times do you have?",
+        "Day 3 · 10:22 AM · Simulated reply — you chose this");
+      await sleep(700);
+      showTyping("AI assistant is typing…");
+      await sleep(1100);
+      hideTyping();
+      addMsg("ai", "AI assistant · Simulated SMS",
+        "Great — happy to help, " + first + ". I can offer <b>" + selected.slot + "</b> or <b>" + selected.slotAlt + "</b> for your " + selected.service.toLowerCase() + " appointment. The first one is yours if you would like it — just say the word and I will hold it for you.",
+        "Day 3 · 10:23 AM · Simulated — not sent");
+      await sleep(800);
+      showTyping(first + " is replying…");
+      await sleep(900);
+      hideTyping();
+      addMsg("lead", "", selected.slot.split(" at ")[0] + " works for me — book me in, please.",
+        "Day 3 · 10:26 AM · Simulated reply");
+      await sleep(700);
+      showTyping("AI assistant is typing…");
+      await sleep(1000);
+      hideTyping();
+      addMsg("ai", "AI assistant · Simulated SMS",
+        "Done — in this simulation, you are booked for <b>" + selected.slot + "</b>. A reminder would normally be sent the day before. Thanks for coming back to us, " + first + ".",
+        "Day 3 · 10:27 AM · Simulated confirmation — no real booking made");
+      await sleep(500);
+      showOutcome(
+        "Reactivated lead — appointment booked",
+        "Appointment booked (simulated)",
+        selected.name + " went from 90-plus days of silence to a confirmed " + selected.service.toLowerCase() + " appointment at " + selected.slot + " — inside one short, polite thread, with no cold-calling and no pressure.",
+        "Booked · " + selected.slot
+      );
+    }
+
+    if (branch === "later"){
+      await sleep(500);
+      showTyping(first + " is replying…");
+      await sleep(1000);
+      hideTyping();
+      addMsg("lead", "", "Not right now, thanks — maybe in a few weeks.",
+        "Day 3 · 11:05 AM · Simulated reply — you chose this");
+      await sleep(700);
+      showTyping("AI assistant is typing…");
+      await sleep(1100);
+      hideTyping();
+      addMsg("ai", "AI assistant · Simulated SMS",
+        "No problem at all, " + first + " — thanks for letting me know. I will check back in three weeks, and if things change before then, just reply here and I will sort out a time for your " + selected.service.toLowerCase() + " appointment.",
+        "Day 3 · 11:06 AM · Simulated — not sent");
+      await sleep(600);
+      addMsg("system", "", "Simulation note: the lead is kept warm with one scheduled check-back in 3 weeks — not chased daily, and free to opt out at any point.",
+        "Simulated follow-up scheduled");
+      await sleep(500);
+      showOutcome(
+        "Lead warmed — follow-up scheduled",
+        "Kept warm — check-back in 3 weeks",
+        selected.name + " is not ready today, and that is a useful answer: instead of being lost or spammed, the lead stays in the pipeline with one agreed check-back. Try the “Interested” path to see the booking outcome.",
+        "Follow-up in 3 weeks"
+      );
+    }
+
+    if (branch === "noreply"){
+      await sleep(600);
+      addMsg("system", "", "24 hours pass in the simulation — " + first + " does not reply.",
+        "Simulated · Day 4");
+      await sleep(800);
+      addDivider("Simulated timeline · Day 5 — one last, light touch");
+      showTyping("AI assistant is typing…");
+      await sleep(1100);
+      hideTyping();
+      addMsg("ai", "AI assistant · Simulated SMS",
+        "Last note from us, " + first + " — I will close this thread so we do not keep messaging you. If you ever want help with " + selected.service.toLowerCase() + ", just reply here and we will pick it straight back up.",
+        "Day 5 · 9:00 AM · Simulated — not sent");
+      await sleep(600);
+      addMsg("system", "", "Simulation note: no reply after the final message, so the sequence stops. No further messages are sent — persistence has a limit.",
+        "Sequence ended respectfully");
+      await sleep(500);
+      showOutcome(
+        "Sequence ended — no reply, no spam",
+        "Closed politely — door left open",
+        selected.name + " never replied, so the AI stopped after one final, friendly message. The lead is not lost forever — any future reply re-opens the thread — but nobody gets chased. Try the “Interested” path to see the booking outcome.",
+        "Stopped after final touch"
+      );
+    }
+  }
+
+  function showOutcome(headline, tag, text, result){
+    var secs = stopTimer();
+    running = false;
+    setStep(4);
+    document.getElementById("outcomeTag").textContent = tag;
+    document.getElementById("outcomeHeadline").textContent = headline;
+    document.getElementById("outcomeText").textContent = text;
+    document.getElementById("outcomeLead").textContent = selected.name + " (fictional)";
+    document.getElementById("outcomeResult").textContent = result;
+    document.getElementById("outcomeTime").textContent = fmt(secs);
+    outcomePanel.classList.add("show");
+    outcomePanel.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+  }
+
+  function resetAll(scrollTop){
+    if (timerId) clearInterval(timerId);
+    timerId = null; elapsedTenths = 0; finalSeconds = null; running = false;
+    threadEl.innerHTML = "";
+    threadPanel.classList.remove("show");
+    outcomePanel.classList.remove("show");
+    branchBox.classList.remove("show");
+    branchBox.querySelectorAll(".branch").forEach(function(b){ b.disabled = false; b.classList.remove("picked"); });
+    hideTyping();
+    timerChip.textContent = "Time to outcome: 0.0s";
+    timerChip2.textContent = "Elapsed: 0.0s";
+    startBtn.disabled = !selected;
+    startHint.textContent = selected
+      ? selected.name + " selected. Press start when you are ready — the clock starts then."
+      : "Select a lead first — the sequence takes well under 90 seconds.";
+    setStep(1);
+    if (scrollTop) window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+  }
+
+  async function tryAnother(){
+    // Keep the same lead and thread opening, re-run quickly to the branch choice.
+    resetAll(false);
+    await sleep(60);
+    startSequence();
+  }
+
+  startBtn.addEventListener("click", startSequence);
+  branchBox.querySelectorAll(".branch").forEach(function(btn){
+    btn.addEventListener("click", function(){ handleBranch(btn.getAttribute("data-branch"), btn); });
+  });
+  document.getElementById("restartBtn").addEventListener("click", function(){ resetAll(true); });
+  document.getElementById("tryAnotherBtn").addEventListener("click", tryAnother);
+
+  renderLeads();
+})();
+</script>
+</body>
+</html>
